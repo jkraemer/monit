@@ -25,7 +25,9 @@ set mail-format {
   message: <%= @node[:monit][:mail_format][:message] %>
 }
 
-set alert <%= @node[:monit][:notify_email] %> NOT ON { action, instance, pid, ppid }
+<% @node[:monit][:notify_email].split(' ').each do |mail_to| %>
+set alert <%= mail_to %> NOT ON { action, instance, pid, ppid }
+<% end %>
 
 <% end %>
 
